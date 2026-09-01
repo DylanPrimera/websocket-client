@@ -1,0 +1,435 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  /* Cobalt — cool engineered ground, one electric-blue signal */
+  --color-paper: oklch(98.5% 0.004 250);
+  --color-paper-2: oklch(96.5% 0.006 250);
+  --color-ink: oklch(24% 0.02 258);
+  --color-ink-2: oklch(34% 0.018 257);
+  --color-ink-muted: oklch(55% 0.014 257);
+  --color-rule: oklch(90% 0.008 250);
+  --color-rule-2: oklch(82% 0.01 250);
+  --color-accent: oklch(58% 0.2 256);
+  --color-accent-ink: oklch(98% 0.005 250);
+  --color-graphite: oklch(22% 0.016 260);
+
+  /* functional status colors — separate from the decorative accent */
+  --color-live: oklch(62% 0.16 150);
+  --color-error: oklch(55% 0.18 25);
+  --color-warn: oklch(70% 0.15 80);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-control: 6px;
+  --radius-card: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--color-paper);
+  color: var(--color-ink-2);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+#app {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+}
+
+.workbench {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ---------- header ---------- */
+
+.wb-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.wb-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+}
+
+.wb-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  color: var(--color-ink);
+}
+
+/* ---------- shared panel chrome ---------- */
+
+.panel {
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  padding: 1.25rem;
+}
+
+.panel-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* ---------- connect panel ---------- */
+
+.panel--connect {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.85rem;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.panel--connect.is-collapsed {
+  border-color: var(--color-rule);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+}
+
+.field-input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--color-rule-2);
+  border-radius: var(--radius-control);
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.field-input::placeholder {
+  color: var(--color-ink-muted);
+  font-family: var(--font-body);
+}
+
+.field-input:hover {
+  border-color: var(--color-rule-2);
+}
+
+.field-input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+  border-color: var(--color-accent);
+}
+
+.field-input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  padding: 0.65rem 1.1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.btn--primary:hover {
+  background: oklch(53% 0.2 256);
+}
+
+.btn--primary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.btn--primary:active {
+  transform: translateY(1px);
+}
+
+.btn--primary:disabled {
+  background: var(--color-rule-2);
+  color: var(--color-ink-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--danger {
+  background: var(--color-error);
+  color: var(--color-accent-ink);
+}
+
+.btn--danger:hover {
+  background: oklch(48% 0.18 25);
+}
+
+.btn--danger:focus-visible {
+  outline: 2px solid var(--color-error);
+  outline-offset: 2px;
+}
+
+.btn--danger:active {
+  transform: translateY(1px);
+}
+
+.btn--danger:disabled {
+  background: var(--color-rule-2);
+  color: var(--color-ink-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--send {
+  flex: 0 0 auto;
+}
+
+/* ---------- status badge ---------- */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-ink-muted);
+}
+
+.status[data-state="connecting"] .status-dot {
+  background: var(--color-warn);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.status[data-state="connected"] .status-dot {
+  background: var(--color-live);
+}
+
+.status[data-state="error"] .status-dot {
+  background: var(--color-error);
+}
+
+.status[data-state="error"] .status-text {
+  color: var(--color-error);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* ---------- workspace ---------- */
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 1rem;
+  min-height: 0;
+}
+
+.panel--clients {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.client-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  max-height: 360px;
+}
+
+.client-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-control);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-ink-2);
+  min-width: 0;
+}
+
+.client-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.client-dot {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-live);
+}
+
+.client-list-empty {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+/* ---------- chat panel ---------- */
+
+.panel--chat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.messages {
+  flex: 1 1 auto;
+  min-height: 280px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.messages-empty {
+  margin: auto;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
+  text-align: center;
+}
+
+.message {
+  max-width: 78%;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-control);
+  padding: 0.5rem 0.7rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.message-from {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-muted);
+  margin-bottom: 0.2rem;
+}
+
+.message-text {
+  font-size: 0.88rem;
+  color: var(--color-ink);
+}
+
+.message.is-own {
+  align-self: flex-end;
+  border-color: var(--color-accent);
+  background: oklch(96% 0.02 256);
+}
+
+.message.is-own .message-from {
+  color: var(--color-accent);
+}
+
+.message-form {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--color-rule);
+}
+
+/* ---------- responsive: 320 / 375 / 414 / 768 ---------- */
+
+@media (max-width: 720px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .client-list {
+    max-height: 160px;
+  }
+
+  .panel--connect {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn--primary,
+  .btn--danger {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot {
+    animation: none;
+  }
+}
