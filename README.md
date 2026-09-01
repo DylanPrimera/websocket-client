@@ -13,7 +13,9 @@ Test client for connecting to a NestJS backend using Socket.IO.
 ```bash
 pnpm install
 
+```
 ## Run
 
 ```bash
 pnpm dev
+```
